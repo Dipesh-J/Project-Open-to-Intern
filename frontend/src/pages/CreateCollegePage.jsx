@@ -32,7 +32,8 @@ const CreateCollegePage = () => {
 
     if (!formData.name.trim()) {
       newErrors.name = 'College name is required';
-    } else if (!/^[a-z][a-z ]+[a-z]$/.test(formData.name.trim())) {
+    } else if (!/^[a-z][a-z ]*[a-z]$/.test(formData.name.trim())) {
+      // Backend requires lowercase letters with optional spaces
       newErrors.name = 'Name should contain only lowercase letters and spaces';
     }
 
@@ -42,8 +43,9 @@ const CreateCollegePage = () => {
 
     if (!formData.logoLink.trim()) {
       newErrors.logoLink = 'Logo URL is required';
-    } else if (!/^(http[s]?:\/\/.*\.(?:png|jpeg))$/.test(formData.logoLink.trim())) {
-      newErrors.logoLink = 'Logo URL must be a valid URL ending with .png or .jpeg';
+    } else if (!/^https?:\/\/.+\.(png|jpeg|jpg|svg|webp)$/i.test(formData.logoLink.trim())) {
+      // More flexible URL validation for various image formats
+      newErrors.logoLink = 'Logo URL must be a valid image URL (png, jpeg, jpg, svg, webp)';
     }
 
     setErrors(newErrors);

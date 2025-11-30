@@ -46,13 +46,15 @@ const CreateInternPage = () => {
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/^[a-z0-9_]{2,}@[a-z]{3,}.[com]{3}$/.test(formData.email.trim())) {
+    } else if (!/^[a-z0-9_]{2,}@[a-z]{3,}\.[a-z]{2,}$/.test(formData.email.trim())) {
+      // Email validation - more flexible than backend for better UX
       newErrors.email = 'Please enter a valid email address';
     }
 
     if (!formData.mobile.trim()) {
       newErrors.mobile = 'Mobile number is required';
-    } else if (!/^[0-9]\d{9}$/.test(formData.mobile.trim())) {
+    } else if (!/^\d{10}$/.test(formData.mobile.trim())) {
+      // 10-digit mobile number validation
       newErrors.mobile = 'Please enter a valid 10-digit mobile number';
     }
 
