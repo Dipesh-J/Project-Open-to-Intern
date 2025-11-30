@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This is open to intern project backend - similar to websites like internshala, chegginternships etc.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dipesh-J/Project-Intern-Management.git"
+  },
+  "author": "Dipesh Joshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dipesh-J/Project-Intern-Management/issues"
+  },
+  "homepage": "https://github.com/Dipesh-J/Project-Intern-Management#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.1",
+    "multer": "^1.4.5-lts.1"
+  }
+}

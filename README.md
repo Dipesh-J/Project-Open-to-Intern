@@ -1,125 +1,243 @@
-# Project-Open-to-Intern
+# Project Open to Intern
 
-### Key points
-- Create a group database `groupXDatabase`. You can clean the db you previously used and resue that.
-- This time each group should have a *single git branch*. Coordinate amongst yourselves by ensuring every next person pulls the code last pushed by a team mate. You branch will be checked as part of the demo. Branch name should follow the naming convention `project/internshipGroupX`
-- Follow the naming conventions exactly as instructed. The backend code will be integrated with the front-end application which means any mismatch in the expected request body will lead to failure in successful integration.
+A full-stack internship management platform that connects students with colleges for internship opportunities. Similar to platforms like Internshala and Chegg Internships.
 
-### Models
-- College Model
+![Homepage](https://github.com/user-attachments/assets/18a35c52-cc39-4406-bd49-b6da1b8e61e9)
+
+## 🚀 Features
+
+- **College Management**: Register and manage colleges with their details and logos
+- **Intern Applications**: Students can apply for internships at registered colleges
+- **College Search**: Search colleges by abbreviated name and view registered interns
+- **Responsive Design**: Fully responsive UI that works on all devices
+- **Modern UI**: Built with a custom design system using design tokens
+
+## 🏗 Project Structure
+
+This is a monorepo containing both frontend and backend:
+
 ```
-{ name: { mandatory, unique, example iith}, fullName: {mandatory, example `Indian Institute of Technology, Hyderabad`}, logoLink: {mandatory}, isDeleted: {boolean, default: false} }
+/
+├── backend/           # Express.js backend API
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── validators/
+│   └── package.json
+├── frontend/          # React + Vite frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── theme/
+│   └── package.json
+└── package.json       # Root workspace config
 ```
-- Intern Model
-```
-{ name: {mandatory}, email: {mandatory, valid email, unique}, mobile: {mandatory, valid mobile number, unique}, collegeId: {ObjectId, ref to college model, isDeleted: {boolean, default: false}}
-```
 
-### POST /functionup/colleges
-- Create a college - a document for each member of the group
-- The logo link will be provided to you by the mentors. This link is a s3 (Amazon's Simple Service) url. Try accessing the link to see if the link is public or not.
+## 🛠 Tech Stack
 
-  `Endpoint: BASE_URL/functionup/colleges`
+### Backend
+- **Node.js** with Express.js
+- **MongoDB** with Mongoose ODM
+- **JWT** for authentication (available)
+- **Multer** for file uploads
 
-### POST /functionup/interns
-- Create a document for an intern. 
-- Also save the collegeId along with the document. Your request body contains the following fields - { name, mobile, email, collegeName}
-- Return HTTP status 201 on a succesful document creation. Also return the document. The response should be a JSON object like [this](#successful-response-structure) 
+### Frontend
+- **React 19** with Vite
+- **React Router** for navigation
+- **Axios** for API calls
+- **TailwindCSS** for styling
+- **React Hot Toast** for notifications
 
-- Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
+## 📡 API Endpoints
 
-### GET /functionup/collegeDetails
-- Returns the college details for the requested college (Expect a query parameter by the name `collegeName`. This is anabbreviated college name. For example `iith`)
-- Returns the list of all interns who have applied for internship at this college.
-- The response structure should look like [this](#college-details)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/functionup/colleges` | Create a new college |
+| POST | `/functionup/interns` | Register as an intern |
+| GET | `/functionup/collegeDetails?collegeName=xxx` | Get college details with interns |
 
+### Request/Response Examples
 
-## Testing 
-- To test these apis create a new collection in Postman named Project 2 Internship
-- Each api should have a new request in this collection
-- Each request in the collection should be rightly named. Eg Create college, Get college details etc
-- Each member of each team should have their tests in running state
-
-
-Refer below sample
-
- ![A Postman collection and request sample](assets/Postman-collection-sample.png)
-
-## Response
-
-### Successful Response structure
-```yaml
+#### Create College
+```json
+POST /functionup/colleges
 {
-  status: true,
-  data: {
-
-  }
+  "name": "iith",
+  "fullName": "Indian Institute of Technology, Hyderabad",
+  "logoLink": "https://example.com/logo.png"
 }
 ```
-### Error Response structure
-```yaml
+
+#### Create Intern
+```json
+POST /functionup/interns
 {
-  status: false,
-  message: ""
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "mobile": "9876543210",
+  "collegeName": "iith"
 }
 ```
 
-## Collections samples
+#### Get College Details
+```json
+GET /functionup/collegeDetails?collegeName=iith
 
-#### College
-```yaml
+Response:
 {
-    "name" : "iith",
-    "fullName" : "Indian Institute of Technology, Hyderabad",
-    "logoLink" : "https://functionup.s3.ap-south-1.amazonaws.com/colleges/iith.png",
-    "isDeleted" : false
-}
-```
-#### Intern
-```yaml
-   {
-    "isDeleted" : false,
-    "name" : "Jane Does",
-    "email" : "jane.doe@iith.in",
-    "mobile" : "90000900000",
-    "collegeId" : ObjectId("888771129c9ea621dc7f5e3b")
-}
-```
-## Response samples
-
-### College details
-```yaml
-{
+  "status": true,
   "data": {
-    "name": "xyz",
-    "fullName": "Some Institute of Engineering and Technology",
-    "logoLink": "some public s3 link for a college logo",
+    "name": "iith",
+    "fullName": "Indian Institute of Technology, Hyderabad",
+    "logoLink": "https://example.com/logo.png",
     "interns": [
       {
-        "_id": "123a47301a53ecaeea02be59",
-        "name": "Jane Doe",
-        "email": "jane.doe@miet.ac.in",
-        "mobile": "8888888888"
-      },
-      {
-        "_id": "45692c0e1a53ecaeea02b1ac",
+        "_id": "...",
         "name": "John Doe",
-        "email": "john.doe@miet.ac.in",
-        "mobile": "9999999999"
-      },
-      {
-        "_id": "7898d0251a53ecaeea02a623",
-        "name": "Sukruti",
-        "email": "dummy.email@miet.ac.in",
-        "mobile": "9191919191"
-      },
-      {
-        "_id": "999803da1a53ecaeea02a07e",
-        "name": "Neeraj Kumar",
-        "email": "another.example@miet.ac.in",
-        "mobile": "9898989898"
+        "email": "john.doe@example.com",
+        "mobile": "9876543210"
       }
     ]
   }
 }
 ```
+
+## 🎨 Design System
+
+The frontend uses a custom design token system:
+
+```javascript
+{
+  colors: {
+    primary: "#735F32",
+    primaryVariant: "#C69749",
+    background: { default: "#000000", surface: "#282A3A" },
+    text: { primary: "#ffffff", secondary: "rgba(255, 255, 255, 0.6)" }
+  },
+  typography: {
+    fontFamily: "'Poppins', sans-serif"
+  }
+}
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- MongoDB connection string
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Dipesh-J/Project-Open-to-Intern.git
+cd Project-Open-to-Intern
+```
+
+2. Install dependencies:
+```bash
+npm install
+cd frontend && npm install
+cd ../backend && npm install
+```
+
+### Running Locally
+
+**Frontend (Development)**:
+```bash
+npm run dev:frontend
+# or
+cd frontend && npm run dev
+```
+Frontend runs on http://localhost:5173
+
+**Backend**:
+```bash
+npm run dev:backend
+# or
+cd backend && npm run dev
+```
+Backend runs on http://localhost:3001
+
+### Building for Production
+
+```bash
+cd frontend && npm run build
+```
+
+## 📱 Screenshots
+
+### Home Page
+![Homepage](https://github.com/user-attachments/assets/18a35c52-cc39-4406-bd49-b6da1b8e61e9)
+
+### Search Colleges
+![Colleges](https://github.com/user-attachments/assets/a1e77cbe-6f07-4e12-aa94-f4a4e85e5b02)
+
+### Add College
+![Add College](https://github.com/user-attachments/assets/39c371b4-2017-44f2-8048-49c754f84120)
+
+### Apply as Intern
+![Apply Intern](https://github.com/user-attachments/assets/bddd1ac6-93e8-48af-8ce0-333b34e948ef)
+
+## 🚀 Deployment
+
+### Frontend Deployment (Vercel/Netlify)
+
+1. Connect your repository to Vercel or Netlify
+2. Set build command: `cd frontend && npm run build`
+3. Set output directory: `frontend/dist`
+4. Set environment variable: `VITE_API_URL=https://your-backend-url.com`
+
+### Backend Deployment (Render/Railway)
+
+1. Connect your repository
+2. Set root directory: `backend`
+3. Set start command: `npm start`
+4. Add environment variables:
+   - `PORT`: Port number
+   - `MONGODB_URI`: Your MongoDB connection string
+
+## 📝 Data Models
+
+### College Model
+```javascript
+{
+  name: String,        // Unique, lowercase (e.g., "iith")
+  fullName: String,    // Full college name
+  logoLink: String,    // URL to college logo
+  isDeleted: Boolean   // Soft delete flag
+}
+```
+
+### Intern Model
+```javascript
+{
+  name: String,        // Intern's full name
+  email: String,       // Unique email
+  mobile: String,      // Unique 10-digit mobile
+  collegeId: ObjectId, // Reference to college
+  isDeleted: Boolean   // Soft delete flag
+}
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the ISC License.
+
+## 👤 Author
+
+**Dipesh Joshi**
+
+---
+
+Built with ❤️ for connecting students with opportunities
