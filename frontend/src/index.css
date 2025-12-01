@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+/* Design Token CSS Variables */
+:root {
+  /* Colors */
+  --color-primary: #735F32;
+  --color-primary-variant: #C69749;
+  --color-bg-default: #000000;
+  --color-bg-surface: #282A3A;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-accent-success: #735F32;
+  --color-accent-warning: #C69749;
+  --color-accent-error: #ff4444;
+  --color-accent-white: #ffffff;
+  --color-accent-light: rgba(255, 255, 255, 0.6);
+
+  /* Typography */
+  --font-family-body: 'Poppins', sans-serif;
+  --font-family-heading: 'Poppins', sans-serif;
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.95rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.2rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 5rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --line-height-normal: 1.7;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 2.4rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 5rem;
+  --spacing-5xl: 6rem;
+  --spacing-6xl: 8rem;
+
+  /* Border Radius */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 2rem;
+  --radius-full: 50%;
+
+  /* Shadows */
+  --shadow-navbar: 0px 4px 8px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --transition-default: all 0.3s ease-in-out;
+  --transition-fast: all 0.2s ease-out;
+  --transition-color: color 0.3s ease-in-out;
+  --transition-background: background-color 0.3s ease-in-out;
+}
+
+/* Custom Theme for Tailwind v4 */
+@theme {
+  /* Colors */
+  --color-primary: #735F32;
+  --color-primary-variant: #C69749;
+  --color-bg-default: #000000;
+  --color-bg-surface: #282A3A;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-accent-success: #735F32;
+  --color-accent-warning: #C69749;
+  --color-accent-error: #ff4444;
+  --color-accent-white: #ffffff;
+  --color-accent-light: rgba(255, 255, 255, 0.6);
+
+  /* Font Family */
+  --font-family-body: 'Poppins', sans-serif;
+  --font-family-heading: 'Poppins', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.95rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.2rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 5rem;
+
+  /* Border Radius */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 2rem;
+  --radius-full: 50%;
+
+  /* Shadows */
+  --shadow-navbar: 0px 4px 8px rgba(0, 0, 0, 0.15);
+
+  /* Breakpoints */
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1200px;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-default);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+a {
+  color: var(--color-primary-variant);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-variant);
+}
+
+/* Container utilities */
+.container-lg {
+  width: 75%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container-md {
+  width: 86%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container-sm {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .container-lg {
+    width: 86%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-lg,
+  .container-md {
+    width: 90%;
+  }
+}
+
